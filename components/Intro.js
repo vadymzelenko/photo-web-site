@@ -63,8 +63,8 @@ export default function Intro() {
       </div>
       <div className="intro__photos">
         <Photo name="hair" className="intro__photo intro__photo--a" data-section />
-        <Photo name="dusk" className="intro__photo intro__photo--b" data-section />
-        <Photo name="sparkler" className="intro__photo intro__photo--c" data-section />
+        <Photo name="fog" className="intro__photo intro__photo--b" data-section />
+        <Photo name="dusk" className="intro__photo intro__photo--c" data-section />
       </div>
     </section>
   );
