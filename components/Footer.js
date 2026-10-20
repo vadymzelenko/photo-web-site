@@ -4,9 +4,12 @@ const credits = [...new Set(Object.values(photos).map((p) => p.credit))].join(",
 
 export default function Footer() {
   return (
-    <footer className="footer">
+    <footer className="footer" data-section data-start="top 95%">
+      <p className="footer__mark" aria-hidden="true" data-reveal="lines">
+        {site.name}
+      </p>
       <p className="footer__what">
-        {site.name} — фотограф, {site.cities}
+        Фотограф, {site.cities}
       </p>
       <nav className="footer__links" aria-label="Соцсети">
         <a className="link" href={site.contacts.instagram.href} target="_blank" rel="noopener">

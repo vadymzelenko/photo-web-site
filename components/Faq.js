@@ -49,7 +49,7 @@ function Question({ q, a }) {
 export default function Faq() {
   return (
     <section id="faq" className="faq" data-section aria-labelledby="faq-title">
-      <div className="faq__text">
+      <div className="faq__aside">
         <h2 id="faq-title" className="head" data-reveal="lines">
           Частые вопросы
         </h2>
@@ -61,11 +61,7 @@ export default function Faq() {
             </div>
           ))}
         </dl>
-        <div className="faq__list" data-reveal="rows">
-          {faq.map((f) => (
-            <Question key={f.q} {...f} />
-          ))}
-        </div>
+        <Photo name="daisies" className="faq__photo" />
         <div className="faq__actions" data-reveal>
           <a className="btn" href={site.contacts.telegram.href} target="_blank" rel="noopener">
             Задать свой вопрос
@@ -75,9 +71,10 @@ export default function Faq() {
           </a>
         </div>
       </div>
-      <div className="faq__media">
-        <Photo name="daisies" className="faq__tall" />
-        <Photo name="seawall" className="faq__square" />
+      <div className="faq__list" data-reveal="rows">
+        {faq.map((f) => (
+          <Question key={f.q} {...f} />
+        ))}
       </div>
     </section>
   );

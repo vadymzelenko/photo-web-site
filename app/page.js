@@ -10,7 +10,7 @@ import Process from "@/components/Process";
 import Faq from "@/components/Faq";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import { site } from "@/lib/site";
+import FloatCta from "@/components/FloatCta";
 
 export default function Home() {
   return (
@@ -28,9 +28,7 @@ export default function Home() {
           <Contact />
         </main>
         <Footer />
-        <a className="float-cta" href={site.contacts.bot.href} target="_blank" rel="noopener">
-          Записаться
-        </a>
+        <FloatCta />
       </Motion>
     </Overlays>
   );

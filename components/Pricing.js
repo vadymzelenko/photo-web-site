@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { priceGroups, site } from "@/lib/site";
-import Photo from "./Photo";
 
 const fmt = (n) => new Intl.NumberFormat("ru-RU").format(n).replace(/ /g, " ");
 const shoots = priceGroups.flatMap((g) => g.items).filter((i) => !i.extra);
@@ -103,33 +102,35 @@ function Calculator() {
 export default function Pricing() {
   return (
     <section id="prices" className="pricing" data-section aria-labelledby="prices-title">
-      <div className="pricing__side">
+      <div className="pricing__head">
         <h2 id="prices-title" className="head" data-reveal="lines">
           Цены
         </h2>
         <p className="pricing__note" data-reveal>
-          Цены в гривнах. Обработка, онлайн-галерея и помощь с образом уже включены.
+          Цены в гривнах. Обработка, онлайн-галерея и помощь с образом уже включены. Справа можно собрать свою
+          съёмку и сразу отправить расчёт боту.
         </p>
-        <div data-reveal>
-          <Calculator />
-        </div>
-        <Photo name="fog" className="pricing__photo" />
       </div>
-      <div className="menu-list">
-        {priceGroups.map((g) => (
-          <div className="menu-list__group" key={g.name} data-reveal="rows">
-            <h3 className="menu-list__name">{g.name}</h3>
-            {g.items.map((i) => (
-              <div className="menu-list__item" key={i.id}>
-                <div className="menu-list__row">
-                  <span>{i.name}</span>
-                  <span className="tabular">{fmt(i.price)} ₴</span>
+      <div className="pricing__body">
+        <div className="menu-list">
+          {priceGroups.map((g) => (
+            <div className="menu-list__group" key={g.name} data-reveal="rows">
+              <h3 className="menu-list__name">{g.name}</h3>
+              {g.items.map((i) => (
+                <div className="menu-list__item" key={i.id}>
+                  <div className="menu-list__row">
+                    <span>{i.name}</span>
+                    <span className="tabular">{fmt(i.price)} ₴</span>
+                  </div>
+                  <p className="menu-list__desc">{i.note}</p>
                 </div>
-                <p className="menu-list__desc">{i.note}</p>
-              </div>
-            ))}
-          </div>
-        ))}
+              ))}
+            </div>
+          ))}
+        </div>
+        <aside className="pricing__calc" data-reveal>
+          <Calculator />
+        </aside>
       </div>
     </section>
   );

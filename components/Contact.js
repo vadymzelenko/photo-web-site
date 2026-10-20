@@ -40,57 +40,54 @@ export default function Contact() {
     }
   };
 
+  const rows = [
+    ["Почта", <a className="link" href={`mailto:${c.email}`}>{c.email}</a>],
+    ["Instagram", <a className="link" href={c.instagram.href} target="_blank" rel="noopener">{c.instagram.handle}</a>],
+    ["Telegram", <a className="link" href={c.telegram.href} target="_blank" rel="noopener">{c.telegram.handle}</a>],
+    ["YouTube", <a className="link" href={c.youtube.href} target="_blank" rel="noopener">{c.youtube.handle}</a>],
+    ["Где", c.address.join(" ")],
+  ];
+
   return (
     <section id="contact" className="contact" ref={root} data-section aria-labelledby="contact-title">
       <div className="contact__photo">
         <img src={p.src} width={p.w} height={p.h} alt={p.alt} loading="lazy" decoding="async" />
       </div>
-      <div className="contact__card" data-reveal>
-        <h2 id="contact-title" className="contact__title">
+      <div className="contact__info">
+        <h2 id="contact-title" className="head" data-reveal="lines">
           Записаться
         </h2>
-        <p className="contact__address">
-          {c.address.map((l) => (
-            <span key={l}>{l}</span>
-          ))}
+        <p className="contact__lead" data-reveal>
+          Напишите боту: он покажет свободные даты и пришлёт расчёт. Или просто позвоните.
         </p>
-        <dl className="contact__hours">
-          {c.hours.map(([d, t]) => (
-            <div key={d}>
-              <dt>{d}</dt>
-              <dd className="tabular">{t}</dd>
-            </div>
-          ))}
-        </dl>
-        <div className="contact__lines">
-          <div className="contact__line">
-            <a className="link" href={c.phoneHref}>
-              {c.phone}
-            </a>
-            <button className="text-btn contact__copy" onClick={() => copy(c.phone, "Номер")}>
-              Копировать
-            </button>
-          </div>
-          <div className="contact__line">
-            <a className="link" href={`mailto:${c.email}`}>
-              {c.email}
-            </a>
-          </div>
-          <div className="contact__social">
-            <a className="link" href={c.instagram.href} target="_blank" rel="noopener">
-              Instagram
-            </a>
-            <a className="link" href={c.telegram.href} target="_blank" rel="noopener">
-              Telegram
-            </a>
-            <a className="link" href={c.youtube.href} target="_blank" rel="noopener">
-              YouTube
-            </a>
-          </div>
+        <div className="contact__phone" data-reveal>
+          <a href={c.phoneHref}>{c.phone}</a>
+          <button className="text-btn" onClick={() => copy(c.phone, "Номер")}>
+            Копировать
+          </button>
         </div>
-        <a className="btn btn--wide btn--tall" href={c.bot.href} target="_blank" rel="noopener">
+        <a className="btn btn--tall contact__btn" href={c.bot.href} target="_blank" rel="noopener" data-reveal>
           Открыть Telegram-бота
         </a>
+        <dl className="contact__rows" data-reveal="rows">
+          {rows.map(([k, v]) => (
+            <div key={k}>
+              <dt>{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))}
+          <div>
+            <dt>Часы</dt>
+            <dd className="contact__hours">
+              {c.hours.map(([d, t]) => (
+                <span key={d}>
+                  <span>{d}</span>
+                  <span className="tabular">{t}</span>
+                </span>
+              ))}
+            </dd>
+          </div>
+        </dl>
       </div>
     </section>
   );
