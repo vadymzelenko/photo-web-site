@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
 
-// Плавающая кнопка на телефоне уходит, когда на экране уже есть контакты с той же кнопкой.
+// Плавающая кнопка на телефоне уходит, когда на экране уже есть такая же кнопка: на первом экране, в контактах и в подвале.
 export default function FloatCta() {
   const [away, setAway] = useState(false);
 
   useEffect(() => {
-    const targets = [document.querySelector("#contact"), document.querySelector(".footer")].filter(Boolean);
+    const targets = [".hero__head", "#contact", ".footer"].map((q) => document.querySelector(q)).filter(Boolean);
     const visible = new Set();
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => (e.isIntersecting ? visible.add(e.target) : visible.delete(e.target)));

@@ -18,7 +18,7 @@ export default function Footer() {
     <footer className="footer" data-section data-start="top 90%">
       <div className="footer__cta">
         <p className="footer__eyebrow" data-reveal>
-          <span className="footer__dot" aria-hidden="true" />
+          <span className="live-dot" aria-hidden="true" />
           {site.availability}
         </p>
         <h2 className="footer__title" data-reveal="lines">
