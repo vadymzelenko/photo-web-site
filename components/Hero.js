@@ -6,13 +6,20 @@ import { useGSAP } from "@gsap/react";
 import { site, sheet, services } from "@/lib/site";
 import Photo from "./Photo";
 import { useOverlays } from "./Overlays";
+import { scrollToHash, useLenis } from "./Motion";
 
 const frames = sheet.flatMap((run) => run.frames.map((name, i) => ({ name, title: i === 0 ? run.title : null })));
 const allNames = frames.map((f) => f.name);
 
 export default function Hero() {
   const { openLightbox } = useOverlays();
+  const lenis = useLenis();
   const sheetRef = useRef(null);
+
+  const jump = (e, href) => {
+    e.preventDefault();
+    scrollToHash(lenis.current, href);
+  };
 
   // Колонки контактного листа плывут с разной скоростью — лист «дышит» при прокрутке.
   useGSAP(
@@ -34,36 +41,11 @@ export default function Hero() {
 
   return (
     <section id="top" className="hero" data-section data-start="top bottom">
-      <div className="hero__band">
+      <div className="hero__head">
         <p className="hero__avail" data-reveal>
+          <span className="live-dot" aria-hidden="true" />
           {site.availability}
         </p>
-        <ul className="hero__list" data-reveal="rows" aria-label="Съёмки">
-          {services.slice(0, 6).map((s) => (
-            <li key={s.id}>{s.name}</li>
-          ))}
-        </ul>
-        <ul className="hero__list hero__list--places" data-reveal="rows" aria-label="Где">
-          <li>Киев</li>
-          <li>Днепр</li>
-          <li>Студия</li>
-          <li>Город и природа</li>
-          <li>Выезд по Украине</li>
-        </ul>
-        <div className="hero__links" data-reveal="rows">
-          <a className="link" href={site.contacts.instagram.href} target="_blank" rel="noopener">
-            Instagram
-          </a>
-          <a className="link" href={site.contacts.telegram.href} target="_blank" rel="noopener">
-            Telegram
-          </a>
-          <a className="link" href={site.contacts.phoneHref}>
-            {site.contacts.phone}
-          </a>
-        </div>
-      </div>
-
-      <div className="hero__head">
         <h1 className="display" data-reveal="lines">
           Фотограф в Киеве и&nbsp;Днепре
         </h1>
@@ -71,10 +53,31 @@ export default function Hero() {
           <p className="lead" data-reveal>
             Портреты, love story, семьи и свадьбы. Снимаю спокойно, без дежурных поз — кадры проявляются сами.
           </p>
-          <a className="btn" href={site.contacts.bot.href} target="_blank" rel="noopener" data-reveal>
-            Записаться в Telegram-боте
-          </a>
+          <div className="hero__actions" data-reveal>
+            <a className="btn" href={site.contacts.bot.href} target="_blank" rel="noopener">
+              Записаться в Telegram-боте
+            </a>
+            <a className="hero__more" href="#work" onClick={(e) => jump(e, "#work")}>
+              Смотреть портфолио <span aria-hidden="true">↓</span>
+            </a>
+          </div>
         </div>
+      </div>
+
+      <div className="hero__meta" data-reveal="rows">
+        <p>
+          {site.cities}
+          <span className="hero__extra"> · выезд по Украине</span>
+        </p>
+        <p className="hero__formats">{services.length} форматов съёмки — от портрета до свадьбы</p>
+        <p className="hero__social">
+          <a className="link" href={site.contacts.instagram.href} target="_blank" rel="noopener">
+            Instagram
+          </a>
+          <a className="link" href={site.contacts.telegram.href} target="_blank" rel="noopener">
+            Telegram
+          </a>
+        </p>
       </div>
 
       <div className="sheet" ref={sheetRef} aria-label="Контактный лист: избранные кадры">
