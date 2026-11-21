@@ -1,31 +1,45 @@
-# Enigma Studio — сайт фотографа
+# Enigma Studio — Photographer Website
 
-Next.js 15 (App Router, JavaScript), GSAP + ScrollTrigger + SplitText, Lenis для плавной прокрутки.
+Website of a photographer working in Kyiv and Dnipro: portfolio, types of shoots, prices with a calculator, the shooting process, FAQ and contacts. Booking goes through a Telegram bot.
+
+## Features
+
+- Hero styled as a photographer's contact sheet
+- Portfolio gallery with a lightbox (keyboard and swipe navigation)
+- Shoot types with previews, price menu and calculator (base hours plus extra hours)
+- Telegram bot deep links that pass the selected package, for example `?start=lovestory_120m_mua`
+- Smooth scrolling (Lenis) and section reveal animations (GSAP, ScrollTrigger, SplitText); content stays visible without JavaScript and motion is reduced when `prefers-reduced-motion` is set
+
+## Getting started
 
 ```bash
 npm install
-npm run dev     # http://localhost:3000
+npm run dev               # http://localhost:3000
 npm run build && npm start
 ```
 
-## Где менять данные
+## Editing content
 
-Все тексты, контакты, цены, вопросы и фотографии — в `lib/site.js`.
+All texts, contacts, prices, FAQ and photos live in `lib/site.js`:
 
-- **Контакты и ссылки** — `site.contacts` (телефон, почта, Instagram, Telegram, бот, адрес, часы).
-- **Фото** — `photos`. Сейчас там атмосферные заглушки с Unsplash (picsum.photos).
-  Положите свои снимки в `public/photos/` и укажите `src: "/photos/имя.jpg"` с реальными `w`/`h`.
-  После замены уберите строку с авторами Unsplash из `components/Footer.js`.
-- **Цены** — `priceGroups` (`base` — базовые часы пакета, `perHour` — цена за час).
-- **Бот**: кнопки ведут на `t.me/<бот>?start=<параметр>`, например `lovestory_120m_mua`
-  (формат, минуты, допы) — бот может разобрать параметр и сразу предложить даты.
+- `site.contacts`: phone, email, Instagram, Telegram, bot, address, opening hours
+- `photos`: placeholder images; put real photos in `public/photos/` and set `src: "/photos/<name>.jpg"` with the real `w` and `h`, then remove the Unsplash credit from `components/Footer.js`
+- `priceGroups`: `base` is the hours included in a package, `perHour` the price of an extra hour
 
-## Устройство
+## Structure
 
-- `components/Motion.js` — Lenis и общая система появления: любой блок с `data-section`
-  показывает свои `data-reveal` по очереди (`lines` — строки из маски, `develop` — кадр «проявляется»,
-  `rows` — построчно, по умолчанию — подъём с прозрачностью). Без JS контент виден сразу,
-  `prefers-reduced-motion` убирает движение.
-- `components/Overlays.js` — лайтбокс (клавиши, свайп) и уведомления.
-- Секции: `Hero` (контактный лист), `Intro`, `Gallery` (шторка), `Services` (список с превью),
-  `Pricing` (меню цен и калькулятор), `Process`, `Faq`, `Contact`, `Footer`.
+| Path | Purpose |
+|---|---|
+| `components/Motion.js` | Lenis and the reveal system: blocks with `data-section` reveal their `data-reveal` children in order (`lines`, `develop`, `rows`) |
+| `components/Overlays.js` | Lightbox and notifications |
+| `components/` | Sections: Hero, Intro, Gallery, Services, Pricing, Process, Faq, Contact, Footer |
+
+## Stack
+
+Next.js 15 (App Router, JavaScript), GSAP, Lenis.
+
+A copy of this site is part of the [template store](https://github.com/vadymzelenko/templates_store) (`sites/enigma-photo`).
+
+## License
+
+[MIT](LICENSE) © Vadym Zelenko
